@@ -1,23 +1,15 @@
 <template>
   <div>
-      <div v-for="item in jobs" :key="item"> {{ item }}</div>
+      <div v-for="job in this.$store.state.jobs" v-bind:key="job"> {{ job }}</div>
   </div>
 </template>
 
 <script>
 
-import { fetchJobsList } from '../api/index.js';
 
 export default {
-  date() {
-    return{
-      jobs: []
-    }
-  },
   created() {
-    fetchJobsList()
-    .then(response => this.jobs = response.data)
-    .catch(error => console.log(error));
+    this.$store.dispatch('FETCH_JOBS');
   }
 }
 </script>
